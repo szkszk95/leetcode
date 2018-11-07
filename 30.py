@@ -8,18 +8,17 @@ class Solution:
         :type words: List[str]
         :rtype: List[int]
         """
+        if len(words) == 0 or len(s) == 0:
+            return []
+        
         self.words = {}
         for word in words:
             if word not in self.words.keys():
                 self.words[word] = 0
             self.words[word] += 1
-        temp =[]
-        if len(words) == 0 or len(s) == 0:
-            return []
         
         self.l = len(words[0])
         res = []
-        
         
         head1, head2 = 0, self.l*len(words)
         while head2 <= len(s):
