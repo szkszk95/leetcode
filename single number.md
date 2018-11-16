@@ -8,11 +8,9 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        res = nums[0]
-        # print(res)
-        for i in range(1, len(nums)):
+        res = 0
+        for i in range(len(nums)):
             res = res^nums[i]
-            # print(res)
         return res
 ```
 
@@ -30,11 +28,9 @@ class Solution:
         :rtype: int
         """
         one , two = 0, 0
-        print(bin(one), bin(two))
         for num in nums:
             one = one^num & ~two # 同时要去掉之前出现过两次的那些位
             two = two^num & ~one # 去掉当前确定只出现了一次的位，让two里面的1碰到0保持1，two里面的0碰到1也保持0
-            print(bin(one), bin(two))
         return one
  ```
  
@@ -55,10 +51,12 @@ class Solution:
         j = 1
         b = a
         
+        # 找到最右边的一个1
         while b >> 1 == b/2:
             b = b>>1
             j = j<<1
         
+        # 将所有指定位置为1的数进行异或操作
         t = 0
         for num in nums:
             if num&j:
