@@ -65,3 +65,32 @@ class Solution:
         t_ = a^t
         return [t, t_]
 ```
+
+## 268. Missing Number
+## find the missing number in the constant array [0,1,2...n]
+思路：
+1. 暴力相减
+```python
+class Solution:
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        expected = len(nums)*(len(nums)+1)/2
+        sum_ = sum(nums)
+        return int(expected-sum_)
+```
+2. 与每一个应出现的数进行异或
+```python
+class Solution:
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        for i in range(len(nums)):
+            res = res ^ (i+1) ^ nums[i]
+        return res
+```
