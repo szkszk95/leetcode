@@ -1,6 +1,6 @@
 ## 136. single number
 ### one number once, else two times
-思路：进行异或操作，两个一样的数组按位异或后变成0， 最后
+思路：进行异或操作，两个一样的数组按位异或后变成0， 最后得到的值即为只出现了一次的数
 ```Python
 class Solution:
     def singleNumber(self, nums):
