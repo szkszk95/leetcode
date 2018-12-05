@@ -1,0 +1,60 @@
+### 87. Scramble String
+#### Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+#### 给定一个树，对任意的非叶子节点的子树进行交换，判断两个字符串是否可以由一系列交换得到
+
+```
+Example 1:
+Input: s1 = "great", s2 = "rgeat"
+Output: true
+
+Example 2:
+Input: s1 = "abcde", s2 = "caebd"
+Output: false
+```
+
+思路一：动态规划
+
+用表格dp[i][j][k]记录，s1[i:i+k-1]与s2[j:j+k-1]是否为交换树
+
+需要在原字符串上的每一个位置进行比较，若满足以下两种情况则视为True
+
+```java
+* S1 [   x1    |         x2         ]
+*    i         i + q                i + k - 1
+* 
+* here we have two possibilities:
+*      
+* S2 [   y1    |         y2         ]
+*    j         j + q                j + k - 1
+*    
+* or 
+* 
+* S2 [       y1        |     y2     ]
+*    j                 j + k - q    j + k - 1
+```
+
+代码如下
+```python
+class Solution:
+    def isScramble(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        """
+        if (len(s1) != len(s2)) or len(s1) == 0:
+            return False
+        l = len(s1)
+        dp = [[[False for _ in range(l+1)] for _ in range(l)] for _ in range(l)]
+        for k in range(1,l+1):
+            for i in range(l+1-k):
+                for j in range(l+1-k):
+                    if k == 1:
+                        if s1[i] == s2[j]:
+                            dp[i][j][k] = True 
+                    else:
+                        for q in range(1, k):
+                            if (dp[i][j][q] and dp[i+q][j+q][k-q]) or (dp[i][j+k-q][q] and dp[i+q][j][k-q]):
+                                dp[i][j][k] = True
+        return dp[0][0][l]
+```
