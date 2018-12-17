@@ -14,12 +14,12 @@ class Solution:
         :type n: int
         :rtype: List[List[str]]
         """
-        table = [["." for i in range(n)] for j in range(n)]
         self.n = n
         self.res = []
         self.run([], 0)
         return self.res
-                
+    
+    # 用于判断是否满足皇后之间不能攻击的条件
     def valid(self, queens, x, y):
         # print("-->", queens, x, y)
         for q in queens:
@@ -28,8 +28,9 @@ class Solution:
                 return False
         return True
         
-    
+    # 回溯的主函数，按行推进
     def run(self, queens, row):
+        # 如果所有行填满，则生成对应的table，并且加入结果之后，回退
         if len(queens) == self.n:
             table = [["." for i in range(self.n)] for j in range(self.n)]
             for q in queens:
@@ -40,6 +41,7 @@ class Solution:
             self.res.append(table)
             return
         
+        # 尝试在该行的每一个位置放置一个皇后，若满足要求，则往下一行推进
         for i in range(self.n):
             if self.valid(queens, row, i):
                 self.run(queens+[[row, i]], row+1)
